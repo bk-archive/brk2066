@@ -13,14 +13,20 @@ namespace BRK2066
         [FunctionName("brk2066")]
         public static async Task<HttpResponseMessage>Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
-                      // parse query parameter
+            // parse query parameter
             string name = req.GetQueryNameValuePairs()
                 .FirstOrDefault(q => string.Compare(q.Key, "name", true) == 0)
                 .Value;
-
-            return name == null
-                ? req.CreateResponse(HttpStatusCode.BadRequest, "Please pass a name on the query string or in the request body")
-                : req.CreateResponse(HttpStatusCode.OK, "Hello " + name);
+            
+            if (name == null)
+            {
+                return req.CreateResponse(HttpStatusCode.BadRequest, "Please pass a name on the query string or in the request body");
+            }
+            else
+            {
+                return req.CreateResponse(HttpStatusCode.OK, "Hello " + name);
+            }
+ 
         }
     }
 }
