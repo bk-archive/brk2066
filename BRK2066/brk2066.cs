@@ -17,7 +17,7 @@ namespace BRK2066
             string name = req.GetQueryNameValuePairs()
                 .FirstOrDefault(q => string.Compare(q.Key, "name", true) == 0)
                 .Value;
-            
+
             if (name == null)
             {
                 return req.CreateResponse(HttpStatusCode.BadRequest, "Please pass a name on the query string or in the request body");
