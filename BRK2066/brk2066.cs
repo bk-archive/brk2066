@@ -18,13 +18,21 @@ namespace BRK2066
                 .FirstOrDefault(q => string.Compare(q.Key, "name", true) == 0)
                 .Value;
 
+            string happy = req.GetQueryNameValuePairs()
+                .FirstOrDefault(q => string.Compare(q.Key, "happy", true) == 0)
+                .Value;
+
             if (name == null)
             {
                 return req.CreateResponse(HttpStatusCode.BadRequest, "Please pass a name on the query string or in the request body");
             }
-            else
+            else if( happy == null)
             {
                 return req.CreateResponse(HttpStatusCode.OK, "Hello " + name);
+            }
+            else
+            {
+                return req.CreateResponse(HttpStatusCode.OK, name + "was this happy: " + happy);
             }
  
         }
